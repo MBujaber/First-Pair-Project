@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from users.views import user_register, logout_user, login_user, home
+from users.views import user_register, logout_user, login_user, home, edit_profile
 
 
 
@@ -26,4 +26,5 @@ urlpatterns = [
     path("register/", user_register, name="register"),
     path("logout/", logout_user, name="logout"),
     path("login/", login_user, name="login"),
+    path("profile/", edit_profile, name="profile"),
 ]
