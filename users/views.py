@@ -57,26 +57,6 @@ def logout_user(request):
     return redirect("home")
 
 
-
-def user_register(request):
-    form = UserRegister()
-    if request.method == "POST":
-        form = UserRegister(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-
-            user.set_password(user.password)
-            user.save()
-
-            login(request, user)
-
-            return redirect("home")
-    context = {
-        "form": form,
-    }
-    return render(request, "register.html", context)
-
-
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
