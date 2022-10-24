@@ -17,9 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from users.views import user_register, logout_user, login_user, home, edit_profile
-from events.views import create_event
-
-
+from events.views import create_event, get_event
 
 
 urlpatterns = [
@@ -29,6 +27,7 @@ urlpatterns = [
     path("logout/", logout_user, name="logout"),
     path("login/", login_user, name="login"),
     path("profile/", edit_profile, name="profile"),
-    path("create/", create_event, name="create_event"),
+    path("events/", get_event, name="event-list"),
+    path("events/create/", create_event, name="create-event"),
 
 ]
