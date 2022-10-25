@@ -29,7 +29,7 @@
   <body class="d-flex flex-column min-vh-100">
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'home' %}">Event Planner</a>
+        <a class="navbar-brand me-auto p-2" href="{% url 'home' %}">Event Planner</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -44,23 +44,40 @@
   
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}"> Home </a>
-            </li>
+            </li> -->
             <li class="nav-item">
-              {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' %}">Edit Profile</a>
-              </li>
-              <a class="nav-link" href="{% url 'logout' %}">logout</a>
-              {% else %}
+              <a class="nav-link" href="{% url 'event-list' %}"> Events </a>
+            </li>
+          </ul>
+          
+
+        <div class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown p-2">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-header">Signed in as {{ request.user.username }}</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+              </ul>
+            </li>
+          </div>
+
+            {% else %}
+
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'register' %}">Register</a>
-              {% endif %}
             </li>
-          </ul>
+
+            {% endif %}
         </div>
       </nav>
       {% block content %}

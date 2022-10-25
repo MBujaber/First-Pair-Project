@@ -1,7 +1,14 @@
 from django.db import models
+from users.forms import User
 
 
 class Event(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="events",
+    )
+    
     name = models.CharField(max_length=50)
 
     starting_time = models.TimeField()

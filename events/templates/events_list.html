@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+{% block title %} TITLE {% endblock title %}
+
+ {% block content %}
+ 
+
+ <form action="{% url 'create-event' %}">
+    <button class="d-flex btn btn-outline-light" type="submit">
+      Add Item
+    </button>
+  </form>
+</div>
+</nav>
+<form class="container  overflow-hidden">
+<h1 class="text-center">event Items</h1>
+<div class="row g-3 ">
+  {% if event_items %} {% for item in event_items %}
+  <div class="col-lg-4">
+    <div class="card shadow my-4">
+      <div class="card-body">
+        <img
+        src={{item.image}}
+        class="card-img-top"
+        alt={{item.name}}
+        />
+        <h5 class="card-title">
+          <a href="{% url 'event-detail' item_id=item.id%}"
+            >{{item.name}}</a
+          >
+        </h5>
+          <p class="card-text">{{ item.description }}</p> 
+          <a class="btn btn-primary btn-sm" href="{% url 'update-event-item' item_id=item.id %}">Edit</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'delete-event-item' item_id=item.id %}">Delete</a>
+        </div>
+      </div>
+  </div>
+  {% endfor %} {% else %}
+  <p>No event items yet!</p>
+  {% endif %}
+</div>
+</form>
+
+
+{% endblock content %}

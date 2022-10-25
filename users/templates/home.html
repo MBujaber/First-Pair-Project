@@ -5,4 +5,17 @@
  
 <h1>Welcome to our event planner!</h1>
 
+{% if request.user.is_staff %}
+
+
+<div class="d-grid gap-2 d-md-flex justify-content-center">
+    <button class="btn btn-primary me-md-2" href="{% url 'create-event' %}" type="button">Create New Event</button>
+  </div>
+  
+  {% else %}
+   
+you are not organizer
+
+  {% endif %}
+
 {% endblock content %}

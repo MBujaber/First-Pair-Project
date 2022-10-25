@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% block title %} TITLE {% endblock title %}
+
+ {% block content %}
+ 
+
+ <form action="{% url 'create-event' %}">
+    <button class="d-flex btn btn-outline-light" type="submit">
+      Add Item
+    </button>
+  </form>
+</div>
+</nav>
+
+<div class="container">
+  <div class="card" style="width: 28rem">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.name }}</h5>
+      <p class="card-text">{{ item.description }}</p>
+      <p class="card-text">{{ item.id }}</p>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
