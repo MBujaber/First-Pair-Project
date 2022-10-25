@@ -28,9 +28,9 @@ def get_events(request: HttpRequest):
 def create_event(request):
     form = EventForm()
     if request.method == "POST":
-        _form = EventForm(request.POST)
-        if _form.is_valid():
-            profile = _form.save(commit=False)
+        form = EventForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
         return redirect("event-list")

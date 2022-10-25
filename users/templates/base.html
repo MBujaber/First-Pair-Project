@@ -50,9 +50,13 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'event-list' %}"> Events </a>
             </li>
+            {% if request.user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create-event' %}"> Create Events </a>
+            </li>
+            {% endif %}
           </ul>
           
-
         <div class="navbar-nav">
             {% if request.user.is_authenticated %}
             <li class="nav-item dropdown p-2">

@@ -1,21 +1,17 @@
 {% extends "base.html" %} 
 {% block title %} TITLE {% endblock title %}
 
- {% block content %}
+{% block content %}
  
-<h1>Welcome to our event planner!</h1>
+    <h1>Welcome to our event planner!</h1>
 
-{% if request.user.is_staff %}
-
-
-<div class="d-grid gap-2 d-md-flex justify-content-center">
-    <button class="btn btn-primary me-md-2" href="{% url 'create-event' %}" type="button">Create New Event</button>
-  </div>
+    {% if request.user.is_staff %} {% if request.user.is_authenticated %}
   
-  {% else %}
+    {% else %}
    
-you are not organizer
+        <h1>You are NOT an organizer!!</h1>
 
-  {% endif %}
+  {% endif %} {% endif %}
 
 {% endblock content %}
+
