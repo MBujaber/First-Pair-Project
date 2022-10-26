@@ -4,23 +4,22 @@
  {% block content %}
  
 
- <form action="{% url 'create-event' %}">
-    <button class="d-flex btn btn-outline-light" type="submit">
-      Add Item
-    </button>
-  </form>
-</div>
-</nav>
-
 <div class="container">
   <div class="card" style="width: 28rem">
     <div class="card-body">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="card-text">{{ item.description }}</p>
+      <h5 class="card-title">Event: {{ item.name }}</h5>
+      <p class="card-text">Description: {{ item.description }}</p>
       <p class="card-text">{{ item.id }}</p>
+      <p class="card-text">by: {{ item.user }}</p>
+      <p class="card-text">Username: {{ request.user.username }}</p>
+    {% if request.user.is_authenticated %} 
+    {% if request.user.is_staff %} 
+    <a class="btn btn-primary btn-sm" href="{% url 'update-event-item' item_id=item.id %}">Edit</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'delete-event-item' item_id=item.id %}">Delete</a>
+    {% endif %} 
+    {% endif %}
     </div>
   </div>
 </div>
-
 
 {% endblock content %}

@@ -13,6 +13,7 @@ def get_event(request, item_id):
                     "name": item.name,
                     "description": item.description,
                     "seats_number": item.seats_number,
+                    "user": item.user
                 }
             }     
     return render(request, "event_details.html", context)
