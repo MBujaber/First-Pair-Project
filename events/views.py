@@ -13,7 +13,8 @@ def get_event(request, item_id):
                     "name": item.name,
                     "description": item.description,
                     "seats_number": item.seats_number,
-                    "user": item.user
+                    "user": item.user,
+                    "image": item.image,
                 }
             }     
     return render(request, "event_details.html", context)
@@ -29,7 +30,7 @@ def get_events(request: HttpRequest):
 def create_event(request):
     form = EventForm()
     if request.method == "POST":
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = request.user

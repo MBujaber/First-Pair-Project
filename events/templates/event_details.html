@@ -12,6 +12,7 @@
       <p class="card-text">{{ item.id }}</p>
       <p class="card-text">by: {{ item.user.id }}</p>
       <p class="card-text">Username: {{ request.user.id }}</p>
+      <img src={{item.image.url}} />
     {% if request.user.is_authenticated %} 
     {% if request.user.is_staff %} 
     {% if item.user.id == request.user.id %} 

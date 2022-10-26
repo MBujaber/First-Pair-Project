@@ -19,6 +19,8 @@ class Event(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    
+    image = models.ImageField()
 
     def __str__(self):
         return self.name

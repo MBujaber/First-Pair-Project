@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from users.views import user_register, logout_user, login_user, home, edit_profile
 from events.views import create_event, get_events, update_event_item, delete_event_item, get_event
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -37,3 +39,10 @@ urlpatterns = [
 
 
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
