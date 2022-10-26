@@ -10,13 +10,15 @@
       <h5 class="card-title">Event: {{ item.name }}</h5>
       <p class="card-text">Description: {{ item.description }}</p>
       <p class="card-text">{{ item.id }}</p>
-      <p class="card-text">by: {{ item.user }}</p>
-      <p class="card-text">Username: {{ request.user.username }}</p>
+      <p class="card-text">by: {{ item.user.id }}</p>
+      <p class="card-text">Username: {{ request.user.id }}</p>
     {% if request.user.is_authenticated %} 
     {% if request.user.is_staff %} 
+    {% if item.user.id == request.user.id %} 
     <a class="btn btn-primary btn-sm" href="{% url 'update-event-item' item_id=item.id %}">Edit</a>
     <a class="btn btn-primary btn-sm" href="{% url 'delete-event-item' item_id=item.id %}">Delete</a>
     {% endif %} 
+    {% endif %}
     {% endif %}
     </div>
   </div>
