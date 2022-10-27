@@ -11,10 +11,13 @@ class Event(models.Model):
     
     name = models.CharField(max_length=50)
 
-    starting_time = models.TimeField()
-    starting_date = models.DateField()
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
-    seats_number = models.IntegerField()
+    total_seats = models.IntegerField(default=20)
+    available_seats = models.IntegerField(default=20)
+
     description = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)

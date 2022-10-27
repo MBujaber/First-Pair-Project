@@ -4,16 +4,11 @@
  {% block content %}
  
 
- <form action="{% url 'create-event' %}">
-    <button class="d-flex btn btn-outline-light" type="submit">
-      Add Item
-    </button>
-  </form>
 </div>
 </nav>
 <form class="container  overflow-hidden">
 <h1 class="text-center">event Items</h1>
-<div class="row g-3 ">
+<div class="row g-3">
   {% if event_items %} {% for item in event_items %}
   <div class="col-lg-4">
     <div class="card shadow my-4">
@@ -23,14 +18,17 @@
         class="card-img-top"
         alt={{item.name}}
         />
-        <h5 class="card-title">
+        <h5 class="card-title text-center">
           <a href="{% url 'event-detail' item_id=item.id%}"
-            >{{item.name}}</a
-          >
+            >{{item.name}}</a>
         </h5>
-
-          <a class="btn btn-primary btn-sm" href="#">Book</a>
-
+        <p class="card-text text-center">{{ item.date }}</p>
+        {% if item.available_seats == 0 %} 
+        <p class="card-text text-center">no seats available!</p>
+        {% else %}
+        <p class="card-text text-center">Available seats: {{ item.available_seats }}</p>
+          <a class="btn btn-primary btn-sm container text-center" href="">Book</a>
+          {% endif %}
         </div>
       </div>
   </div>

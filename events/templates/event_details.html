@@ -3,26 +3,37 @@
 
  {% block content %}
  
-
-<div class="container">
-  <div class="card" style="width: 28rem">
+<form class="container  overflow-hidden">
+<div class="container  d-inline-flex p-2"">
+  <div class="card mx-auto" style="width: 50rem">
     <div class="card-body">
       <h5 class="card-title">Event: {{ item.name }}</h5>
+      <p class="card-text">Event date: {{ item.date }}</p>
+      <p class="card-text">Start time: {{ item.start_time }} - End time: {{ item.end_time }} </p>
+      <p class="card-text">Available seats: {{ item.available_seats }}</p>
       <p class="card-text">Description: {{ item.description }}</p>
-      <p class="card-text">{{ item.id }}</p>
-      <p class="card-text">by: {{ item.user.id }}</p>
-      <p class="card-text">Username: {{ request.user.id }}</p>
-      <img src={{item.image.url}} />
+      <p class="card-text">Created on: {{ item.created_at}}</p>
+      <p class="card-text">by: {{ item.user }}</p>
+      <img
+      src={{item.image.url}}
+      class="card-img-top d-inline-flex p-2"
+      alt={{item.name}}
+      />
     {% if request.user.is_authenticated %} 
     {% if request.user.is_staff %} 
     {% if item.user.id == request.user.id %} 
+  <div class="container text-center"> 
+    <div class="row g-2 ">
     <a class="btn btn-primary btn-sm" href="{% url 'update-event-item' item_id=item.id %}">Edit</a>
     <a class="btn btn-primary btn-sm" href="{% url 'delete-event-item' item_id=item.id %}">Delete</a>
+    </div>
+  </div>
     {% endif %} 
     {% endif %}
     {% endif %}
     </div>
   </div>
 </div>
+</form>
 
 {% endblock content %}

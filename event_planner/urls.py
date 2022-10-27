@@ -16,8 +16,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from users.views import user_register, logout_user, login_user, home, edit_profile
-from events.views import create_event, get_events, update_event_item, delete_event_item, get_event
+from users.views import user_register, logout_user, login_user, edit_profile, home
+from events.views import create_event, get_events, update_event_item, delete_event_item, get_event, book_ticket
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path("profile/", edit_profile, name="profile"),
     path("event/<int:item_id>/", get_event, name="event-detail"),
     path("events/", get_events, name="event-list"),
+    path("events/bookticket", book_ticket, name="book_ticket"),
     path("events/create/", create_event, name="create-event"),
     path("events/update/<int:item_id>/",
          update_event_item, name="update-event-item"),

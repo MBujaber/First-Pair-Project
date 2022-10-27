@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from .models import Event
 from events import models
 from .forms import EventForm
@@ -11,10 +11,16 @@ def get_event(request, item_id):
                "item": { 
                     "id": item.id,
                     "name": item.name,
+                    "date": item.date,
+                    "start_time": item.start_time,
+                    "end_time": item.end_time,
+                    "total_seats": item.total_seats,
+                    "available_seats": item.available_seats,
                     "description": item.description,
-                    "seats_number": item.seats_number,
                     "user": item.user,
                     "image": item.image,
+                    "created_at": item.created_at,
+                    "modified_at": item.modified_at,
                 }
             }     
     return render(request, "event_details.html", context)
@@ -59,3 +65,21 @@ def update_event_item(request, item_id):
 def delete_event_item(request, item_id):
     Event.objects.get(id=item_id).delete()
     return redirect("event-list")
+
+
+def book_ticket(request):
+
+    if request.user.is_authenticated:
+        movie_show = Event.objects.get()
+        if movie_show:
+            if (movie_show.event.available_seats >= 1):
+                movie_show.event.available_seats -= 1
+                movie_show.event.save()
+                return JsonResponse({"message": "You have successfully booked ticket for this show"})
+            else:
+                return JsonResponse({"message": "There are no Seats available for this Show"})
+        else:
+            return JsonResponse({"message": "Booking failed as the selected preferences are incorrect/in valid"})
+    return JsonResponse({"message": "Kindly login to continue booking for your favorite movie now"})
+
+
