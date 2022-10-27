@@ -50,6 +50,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'event-list' %}"> Events </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'event-list' %}"> Event Organizers </a>
+            </li>
             {% if request.user.is_staff %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create-event' %}"> Create Events </a>
@@ -64,6 +67,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-header">Signed in as {{ request.user.username }}</a></li>
                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a></li>
                 <li><a class="dropdown-item" href="#">Change Password</a></li>
                 <li><hr class="dropdown-divider"></li>
