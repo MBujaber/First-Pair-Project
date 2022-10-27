@@ -1,6 +1,5 @@
 from django.db import models
-from users.forms import User
-
+from django.contrib.auth.models import User
 
 class Event(models.Model):
     user = models.ForeignKey(
@@ -27,3 +26,18 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+class Booking(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="bookings",
+    )
+    
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name="bookings",
+    )
+    
+    booked_at = models.DateTimeField(auto_now_add=True)
