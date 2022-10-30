@@ -1,0 +1,35 @@
+{% extends "base.html" %} 
+{% block title %} TITLE {% endblock title %}
+
+ {% block content %}
+ 
+ <h1 class="text-center">My Booking</h1>
+    <div class="row g-3">
+      {% if bookings %}
+      {% for booking in bookings %}  
+     <div class="col-lg-4">
+       <div class="card shadow my-4">
+         <div class="card-body">
+           <img
+           src={{booking.event.image.url}}
+           class="card-img-top"
+           alt={{booking.event.name}}
+           />
+           <p class="card-text text-center">{{ booking.event.name }}</p>
+           <p class="card-text text-center">Date: {{ booking.event.date  }}</p>
+           <p class="card-text text-center">Seats:{{ booking.book_seats }}</p>
+           </div>
+         </div>
+ 
+ 
+     </div>
+     {% endfor %}
+     {% else %}
+     <p>>No booking yet!</p>
+     {% endif %}
+ 
+   </div>
+
+
+
+{% endblock content %}

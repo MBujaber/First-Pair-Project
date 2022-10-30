@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.validators import MinValueValidator 
 
 class Event(models.Model):
     user = models.ForeignKey(
@@ -42,7 +42,7 @@ class Booking(models.Model):
         on_delete=models.CASCADE,
         related_name="bookings",
     )
-    book_seats = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    book_seats = models.PositiveIntegerField(validators=[MinValueValidator(1, "Minimum seats is 1 seat."),])
     booked_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -51,11 +51,6 @@ class Booking(models.Model):
     def __str__(self):
         return f"By: {self.user} - Event: {self.event} - Seats:{self.book_seats}"
 
-    def validate_nonzero(value):
-        if value == 0:
-            raise ValidationError(('Quantity %(value)s is not allowed'),
-                params={'value': value},
-            )
 
     # @property
     # def available(self):
