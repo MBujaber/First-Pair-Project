@@ -38,7 +38,14 @@
         <p class="card-text text-center">no seats available!</p>
         {% else %}
         <p class="card-text text-center">Available seats: {{ item.available_seats }}</p>
+        {% if request.user.is_authenticated %} 
+        {% if request.user.is_staff %} 
+
+        {% else %}
+
           <a class="btn btn-primary btn-sm container text-center" href="{% url 'book-ticket' item_id=item.id %}">Book</a>
+          {% endif %}
+          {% endif %}
           {% endif %}
         </div>
       </div>
