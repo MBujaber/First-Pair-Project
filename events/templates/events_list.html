@@ -4,12 +4,22 @@
  {% block content %}
  
 
-</div>
-</nav>
 <form class="container  overflow-hidden">
 <h1 class="text-center">Events</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <div class="row g-3">
-  {% if event_items %} {% for item in event_items %}
+  {% if event_items %} {% for item in event_items %} 
   <div class="col-lg-4">
     <div class="card shadow my-4">
       <div class="card-body">
@@ -23,11 +33,12 @@
             >{{item.name}}</a>
         </h5>
         <p class="card-text text-center">{{ item.date }}</p>
+        <p class="card-text text-center">{{ item.available }}</p>
         {% if item.available_seats == 0 %} 
         <p class="card-text text-center">no seats available!</p>
         {% else %}
         <p class="card-text text-center">Available seats: {{ item.available_seats }}</p>
-          <a class="btn btn-primary btn-sm container text-center" href="">Book</a>
+          <a class="btn btn-primary btn-sm container text-center" href="{% url 'book-ticket' item_id=item.id %}">Book</a>
           {% endif %}
         </div>
       </div>
@@ -35,6 +46,8 @@
   {% endfor %} {% else %}
   <p>No event items yet!</p>
   {% endif %}
+
+  
 </div>
 </form>
 

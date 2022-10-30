@@ -6,11 +6,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-
-def home(request: HttpRequest) -> HttpResponse:
-    return render(request, "home.html")
-
-
 def user_register(request):
     form = UserRegister()
     if request.method == "POST":

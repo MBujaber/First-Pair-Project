@@ -16,27 +16,31 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from users.views import user_register, logout_user, login_user, edit_profile, home
-from events.views import create_event, get_events, update_event_item, delete_event_item, get_event, book_ticket
+from users.views import user_register, logout_user, login_user, edit_profile
+from events.views import create_event, get_events, update_event_item, delete_event_item, get_event, book_event, my_booking, my_event
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", home, name="home"),
+    path("", get_events, name="home"),
+
     path("register/", user_register, name="register"),
     path("logout/", logout_user, name="logout"),
     path("login/", login_user, name="login"),
     path("profile/", edit_profile, name="profile"),
-    path("event/<int:item_id>/", get_event, name="event-detail"),
+    path("events/<int:item_id>/", get_event, name="event-detail"),
     path("events/", get_events, name="event-list"),
-    path("events/bookticket", book_ticket, name="book_ticket"),
+    path("events/<int:item_id>/bookticket/", book_event, name="book-ticket"),
     path("events/create/", create_event, name="create-event"),
     path("events/update/<int:item_id>/",
          update_event_item, name="update-event-item"),
     path("events/delete/<int:item_id>/",
          delete_event_item, name="delete-event-item"),
+    path("mybooking/", my_booking, name="my-booking"),
+    path("myevent/", my_event, name="my-event"),
+    
 
 
 ]
@@ -44,6 +48,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-    
-if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

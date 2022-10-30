@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block title %} TITLE {% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<!-- {{item.name}} -->
+<!-- <div class="container">
+  <form class="my-class" action="{% url 'book-ticket' item_id=item.id %}" method="POST">
+    {% csrf_token %} {{form|crispy}}
+    {{form.book_seats}}
+    {{form.event}}
+    <button class="btn btn-dark mt-3" type="submit">book the event</button>
+  </form>
+</div> -->
+
+<h1 class="text-center">Booking</h1>
+<form class="container  overflow-hidden" action="{% url 'book-ticket' item_id=item.id %}" method="POST">
+<div class="card text-center">
+  <div class="card-header">
+   <h5>{{item.name}}</h5> 
+  </div>
+  <div class="card-body">
+    <!-- <h5 class="card-title">{{item.name}}</h5> -->
+    <p class="card-text">Please select number of seats</p>
+    <div class="container">
+      {% csrf_token %} {{form|crispy}}
+      <!-- {{form.book_seats}}
+      {{form.event}} -->
+      <button class="btn btn-dark mt-3" type="submit">book the event</button>
+  </div>
+  </div>
+  <div class="card-footer text-muted">
+    Created on: {{ item.date }}
+  </div>
+</div>
+</form>
+
+
+{% endblock content %}

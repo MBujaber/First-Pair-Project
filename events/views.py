@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, JsonResponse, HttpResponse
+from django.db.models import Sum
+from django.contrib import messages
 from .models import Event
 from events import models
-from .forms import EventForm
+from .forms import EventForm, BookForm
+from django.contrib.auth.decorators import login_required
 
 
 def get_event(request, item_id):
@@ -22,6 +25,7 @@ def get_event(request, item_id):
                     "created_at": item.created_at,
                     "modified_at": item.modified_at,
                 }
+                
             }     
     return render(request, "event_details.html", context)
 
@@ -32,7 +36,7 @@ def get_events(request: HttpRequest):
     }
     return render(request, "events_list.html", context)
 
-
+@login_required
 def create_event(request):
     form = EventForm()
     if request.method == "POST":
@@ -46,7 +50,7 @@ def create_event(request):
     context = {"form": form}
     return render(request, "event_create.html", context)
 
-
+@login_required
 def update_event_item(request, item_id):
     item = Event.objects.get(id=item_id)
     form = EventForm(instance=item)
@@ -61,25 +65,53 @@ def update_event_item(request, item_id):
     }
     return render(request, 'event_update.html', context)
 
-
+@login_required
 def delete_event_item(request, item_id):
     Event.objects.get(id=item_id).delete()
     return redirect("event-list")
 
+@login_required
+def book_event(request, item_id):
+    item = Event.objects.get(id=item_id)
+    form = BookForm()
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.event = item
+            form.save()
+            messages.success(request, 'You have successfully booked ticket for this event, you will receive a ticket confirmation through email')
+        return redirect("event-list")
+    context = {
+        "item": item,
+        "form": form,
+    }
+    return render(request, "event_book.html", context)
 
-def book_ticket(request):
+def home(request: HttpRequest) -> HttpResponse:
+    return render(request, "home.html")
 
-    if request.user.is_authenticated:
-        movie_show = Event.objects.get()
-        if movie_show:
-            if (movie_show.event.available_seats >= 1):
-                movie_show.event.available_seats -= 1
-                movie_show.event.save()
-                return JsonResponse({"message": "You have successfully booked ticket for this show"})
-            else:
-                return JsonResponse({"message": "There are no Seats available for this Show"})
-        else:
-            return JsonResponse({"message": "Booking failed as the selected preferences are incorrect/in valid"})
-    return JsonResponse({"message": "Kindly login to continue booking for your favorite movie now"})
+def my_booking(request: HttpRequest) -> HttpResponse:
+    return render(request, "booking_user_list.html")
+    my_event
+def my_event(request: HttpRequest) -> HttpResponse:
+    return render(request, "my_event.html")
+    
+# def get_booking(request, item_id):
+#     booking = Booking.objects.get(id=item_id)
+#     context = {
+#                "booking": { 
+#                     "id": booking.id,
+#                     "book_seats": booking.book_seats,
+#                     "booked_at": booking.booked_at,
+#                 }
+#             }     
+#     return render(request, "booking_user_list", context)
 
-
+# def get_booking_events(request: HttpRequest):
+#     booking_items: list[models.Booking] = list(models.Booking.objects.all())
+#     context = {
+#         "booking_items:": booking_items,
+#     }
+#     return render(request, "booking_user_list.html", context)
