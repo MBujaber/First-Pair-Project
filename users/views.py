@@ -4,6 +4,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 def user_register(request):
@@ -68,3 +71,9 @@ def edit_profile(request):
         "form": user_form,
     }
     return render(request, "edit_profile.html", context)
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('home')
+

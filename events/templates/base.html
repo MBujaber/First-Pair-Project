@@ -73,7 +73,7 @@
                 <li><a class="dropdown-header">Signed in as {{ request.user.username }}</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
               </ul>

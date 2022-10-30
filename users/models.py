@@ -10,3 +10,5 @@ class Profile(models.Model):
         primary_key=True,
     )
     dob = models.DateTimeField()
+
+

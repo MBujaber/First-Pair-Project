@@ -20,6 +20,8 @@ from users.views import user_register, logout_user, login_user, edit_profile
 from events.views import create_event, get_events, update_event_item, delete_event_item, get_event, book_event, get_my_booking, get_my_events
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
+from users.views import ChangePasswordView
 
 
 urlpatterns = [
@@ -40,6 +42,8 @@ urlpatterns = [
          delete_event_item, name="delete-event-item"),
     path("my-booking/", get_my_booking, name="my-booking"),
     path("my-event/", get_my_events, name="my-event"),
+    path('password-change/', ChangePasswordView.as_view(), name='password_change'),
+    
     
 
 
